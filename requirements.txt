@@ -1,4 +1,4 @@
-sanic
+sanic==22.12.0
 sanic_session
 sanic_cors
 jinja2
