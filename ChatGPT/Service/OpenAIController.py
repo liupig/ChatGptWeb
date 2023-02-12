@@ -3,9 +3,12 @@ import json
 import requests
 
 URL = "https://api.openai.com/v1/completions"
+Authorization = ""  # 替换你自己的Authorization
+if not Authorization:
+    raise "Please enter your Authorization"
 headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer you-Authorization"  # 替换你自己的Authorization
+    "Authorization": "Bearer {}".format(Authorization)
 }
 
 
