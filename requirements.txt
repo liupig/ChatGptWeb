@@ -1,3 +1,4 @@
 sanic
 sanic_session
 sanic_cors
+jinja2

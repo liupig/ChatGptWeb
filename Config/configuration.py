@@ -3,6 +3,7 @@
 
 
 from Config.BaseCommonClass import *
+from sanic import json as Json
 
 JinJaTemplate = JinJaTemplate()
 template = JinJaTemplate.template_render_sync
