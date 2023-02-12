@@ -10,8 +10,12 @@ only need you run:
 
 这是一个chatGPT的Web项目, 只需要三步就可以使用了:
 
-1.  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn -r requirements.txt
+1. pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn -r requirements.txt
 
-2.  替换您的chatgpt/Service/OpenAIController.py 中的you-Authorization为您的Authorization
+2. 替换您的chatgpt/Service/OpenAIController.py 中的you-Authorization为您的Authorization
 
-3.  python runServer.py
+3. python runServer.py
+
+
+The front-end code comes from: aigcfun; thank
+前端代码来自于：aigcfun, 致谢
