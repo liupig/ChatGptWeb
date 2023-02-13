@@ -3,18 +3,11 @@ import json
 import requests
 
 URL = "https://api.openai.com/v1/completions"
-Authorization = ""  # 替换你自己的Authorization
-if not Authorization:
-    raise "Please enter your Authorization"
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer {}".format(Authorization)
-}
 
 
 class ChatGPT(object):
     @staticmethod
-    def GetApi(prompt, model="text-davinci-003", temperature=0, max_tokens=3000):
+    def GetApi(prompt, authorization, model="text-davinci-003", temperature=0, max_tokens=3000):
         data = json.dumps({
             "model": model,
             "prompt": prompt,
@@ -22,6 +15,10 @@ class ChatGPT(object):
             "max_tokens": max_tokens
             # "stream": True
         })
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer {}".format(authorization)
+        }
         response = requests.post(url=URL, headers=headers, data=data)
         result = response.json()
         return (result or {}).get("choices", [])

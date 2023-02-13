@@ -1,6 +1,13 @@
+import random
+import re
+
 from sanic import Blueprint
 from Config.configuration import *
 from ChatGPT.Service.OpenAIController import ChatGPT
+
+Authorization = []  # 替换你自己的Authorization
+if not Authorization:
+    raise "Please enter your Authorization"
 
 SERVERINDEX = Blueprint("Index")
 chatGPT = ChatGPT()
@@ -29,5 +36,34 @@ async def post_chatgpt_decode(request):
     userText = userText.lstrip("Human:")
     data = {"choices": [{"text": "非法请求", "index": 0, "finish_reason": "stop", "block": False}], "error": None}
     if userText:
-        data["choices"] = chatGPT.GetApi(userText)
+        if userText.startswith("DeletePrivateAuthorization:"):
+            result = Json({
+                "choices": [
+                    {
+                        "text": "User Cancel Authorization",
+                        "index": 0,
+                        "finish_reason": "stop",
+                        "block": False
+                    }],
+                "error": None})
+            result.cookies["PrivateAuthorization"] = ""
+            return result
+
+        if userText.startswith("AddPrivateAuthorization:"):
+            authorizationResult = re.search("AddPrivateAuthorization:\[(.*?)\]", userText)
+            if authorizationResult:
+                result = Json({
+                    "choices": [
+                        {
+                            "text": "User authorization succeeded",
+                            "index": 0,
+                            "finish_reason": "stop",
+                            "block": False
+                        }],
+                    "error": None})
+                privateAuthorization = authorizationResult.group(1).strip()
+                result.cookies["PrivateAuthorization"] = privateAuthorization
+                return result
+
+        data["choices"] = chatGPT.GetApi(userText, request.cookies.get("PrivateAuthorization") or random.choice(Authorization))
     return Json(data)
