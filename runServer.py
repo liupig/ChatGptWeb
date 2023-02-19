@@ -17,4 +17,4 @@ APP.blueprint(NoneRequest)
 if __name__ == "__main__":
     # sanic RunBing.APP --host=0.0.0.0 --port=7777 --workers=4
     # python -m sanic RunBing.APP --host=0.0.0.0 --port=7777 --workers=4
-    APP.run(host='0.0.0.0', port=8090, debug=False, auto_reload=True, workers=4)
+    APP.run(host='127.0.0.1', port=8090, debug=False, auto_reload=True, workers=4)
